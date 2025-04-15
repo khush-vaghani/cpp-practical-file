@@ -1,84 +1,46 @@
-#include <iostream>
-#include <vector>
+#include<iostream>
 using namespace std;
 
-class Rectangle {
-private:
-    double length;
-    double width;
-
-public:
-    Rectangle(double l = 0.0, double w = 0.0) {
-        length = l;
-        width = w;
+class rectangle
+{
+    float length,breadth;
+    public:
+    void getdata()
+    {
+        cout<<"Enter length: "<<endl;
+        cin>>length;
+        cout<<"Enter width: "<<endl;
+        cin>>breadth;
     }
-
-    void setDimensions(double l, double w) {
-        length = l;
-        width = w;
+    float area()
+    {
+        return length*breadth;
     }
-
-    double getArea() const {
-        return length * width;
+    float perimeter()
+    {
+        return 2*(length + breadth);
     }
-
-    double getPerimeter() const {
-        return 2 * (length + width);
-    }
-
-    void display(int index) const {
-        cout << "Rectangle " << index + 1 << ": "
-             << "Length = " << length
-             << ", Width = " << width
-             << ", Area = " << getArea()
-             << ", Perimeter = " << getPerimeter() << endl;
+    void putdata()
+    {
+        cout<<"The length is: "<<length<<endl;
+        cout<<"The breadth is: "<<breadth<<endl;
+        cout<<"The area of rectangle: "<<area()<<endl;
+        cout<<"The perimeter of rectangle: "<<perimeter()<<endl;
     }
 };
-
-class RectangleManager {
-private:
-    vector<Rectangle> rectangles;
-
-public:
-    void addRectangle(double length, double width) {
-        Rectangle rect(length, width);
-        rectangles.push_back(rect);
-        cout << "Rectangle added successfully.\n";
+int main()
+{
+    rectangle r[50];
+    int n;
+    cout<<"Enter the number of rectangle: "<<endl;
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        cout<<"=========Enter details of rectangle========="<<endl;
+        r[i].getdata();
+        r[i].putdata();
     }
-
-    void updateRectangle(int index, double length, double width) {
-        if (index < 0 || index >= rectangles.size()) {
-            cout << "Invalid rectangle index.\n";
-            return;
-        }
-        rectangles[index].setDimensions(length, width);
-        cout << "Rectangle updated successfully.\n";
-    }
-
-    void displayAll() const {
-        if (rectangles.empty()) {
-            cout << "No rectangles to display.\n";
-            return;
-        }
-        cout << "\n--- Rectangles Summary ---\n";
-        for (int i = 0; i < rectangles.size(); ++i) {
-            rectangles[i].display(i);
-        }
-    }
-};
-
-int main() {
-    RectangleManager manager;
-
-    manager.addRectangle(10, 5);
-    manager.addRectangle(8, 3.5);
-    manager.addRectangle(6.2, 4.1);
-
-    manager.displayAll();
-
-    manager.updateRectangle(1, 9, 4.5);
-
-    manager.displayAll();
+    cout<<"SHREEJAY_24CE117";
 
     return 0;
 }

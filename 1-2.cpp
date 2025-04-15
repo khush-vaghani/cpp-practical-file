@@ -1,103 +1,84 @@
 #include <iostream>
-#include <vector>
-#include <string>
+
 using namespace std;
 
-class Product {
-private:
-    int productID;
+const int MAX_PRODUCTS = 100;
+
+struct Product
+{
+    int id;
     string name;
     int quantity;
     double price;
-
-public:
-    Product(int id, string productName, int qty, double unitPrice) {
-        productID = id;
-        name = productName;
-        quantity = qty;
-        price = unitPrice;
-    }
-
-    int getProductID() const {
-        return productID;
-    }
-
-    void updateQuantity(int qtyChange) {
-        quantity += qtyChange;
-    }
-
-    double getValue() const {
-        return quantity * price;
-    }
-
-    void display() const {
-        cout << "ID: " << productID
-             << " | Name: " << name
-             << " | Quantity: " << quantity
-             << " | Price: $" << price << endl;
-    }
 };
 
-class Inventory {
-private:
-    vector<Product> products;
+int main()
+{
+    Product inventory[MAX_PRODUCTS];
+    int count = 0;
+    int choice;
 
-public:
-    void addProduct(int id, string name, int quantity, double price) {
-        
-        for (const auto& product : products) {
-            if (product.getProductID() == id) {
-                cout << "Product with ID " << id << " already exists!" << endl;
-                return;
+    do
+    {
+        cout << "1. Add Product\n";
+        cout << "2. Update Quantity\n";
+        cout << "3. Show Total Inventory Value\n";
+        cout << "4. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        if (choice == 1)
+        {
+            if (count < MAX_PRODUCTS)
+            {
+                cout << "Enter ID: ";
+                cin >> inventory[count].id;
+                cout << "Enter Name: ";
+                cin >> inventory[count].name;
+                cout << "Enter Quantity: ";
+                cin >> inventory[count].quantity;
+                cout << "Enter Price: ";
+                cin >> inventory[count].price;
+                count++;
+            }
+            else
+            {
+                cout << "Inventory full\n";
             }
         }
-        Product newProduct(id, name, quantity, price);
-        products.push_back(newProduct);
-        cout << "Product added successfully.\n";
-    }
-
-    void updateProductQuantity(int id, int qtyChange) {
-        for (auto& product : products) {
-            if (product.getProductID() == id) {
-                product.updateQuantity(qtyChange);
-                cout << "Product quantity updated.\n";
-                return;
+        else if (choice == 2)
+        {
+            int id, found = 0;
+            cout << "Enter Product ID to update: ";
+            cin >> id;
+            for (int i = 0; i < count; i++)
+            {
+                if (inventory[i].id == id)
+                {
+                    cout << "Enter new Quantity: ";
+                    cin >> inventory[i].quantity;
+                    found = 1;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                cout << "Product not found\n";
             }
         }
-        cout << "Product with ID " << id << " not found!\n";
-    }
-
-    void displayInventory() const {
-        cout << "\n--- Inventory ---\n";
-        for (const auto& product : products) {
-            product.display();
+        else if (choice == 3)
+        {
+            double total = 0;
+            for (int i = 0; i < count; i++)
+            {
+                total += inventory[i].quantity * inventory[i].price;
+            }
+            cout << "Total Inventory Value: " << total << "\n";
         }
+
     }
-
-    void calculateTotalValue() const {
-        double totalValue = 0;
-        for (const auto& product : products) {
-            totalValue += product.getValue();
-        }
-        cout << "Total inventory value: $" << totalValue << endl;
-    }
-};
-
-int main() {
-    Inventory storeInventory;
-
-    storeInventory.addProduct(101, "Soap", 50, 1.99);
-    storeInventory.addProduct(102, "Shampoo", 30, 4.49);
-    storeInventory.addProduct(103, "Toothpaste", 20, 2.99);
-
-    storeInventory.displayInventory();
-
-    storeInventory.updateProductQuantity(101, 25);   
-    storeInventory.updateProductQuantity(102, -10);  
-
-    storeInventory.displayInventory();
-
-    storeInventory.calculateTotalValue();
+    while (choice != 4);
+    cout << "SHREEJAY_24CE117";
 
     return 0;
 }
