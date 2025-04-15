@@ -70,6 +70,6 @@ int main()
         cout<<"The details of"<<i+1<<"student"<<endl;
         s[i].display();
     }
-    cout<<"SHREEJAY_24CE117";
+    cout<<"khush_24CE135";
     return 0;
 }

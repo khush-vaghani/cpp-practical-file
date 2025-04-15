@@ -34,6 +34,6 @@ int main()
     int result = Super_Digit_Of_Concatenated_Number(n, k);
     cout << endl
          << "The super digit is : " << result<<endl;
-    cout<<"SHREEJAY_24CE117";
+         cout<<"khush_24CE135";
     return 0;
 }
