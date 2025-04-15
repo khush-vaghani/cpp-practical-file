@@ -1,66 +1,111 @@
 #include <iostream>
-#include <string>
+
 using namespace std;
 
-class BankAccount {
+class BankAccount
+{
 private:
     string accountHolderName;
-    int accountNumber;
+    string accountNumber;
     double balance;
 
 public:
-    BankAccount(string name, int accNumber, double initialBalance) {
+    BankAccount(string name, string accNumber, double initialBalance)
+    {
         accountHolderName = name;
         accountNumber = accNumber;
         balance = initialBalance;
     }
 
-    
-    void deposit(double amount) {
-        if (amount > 0) {
+    void deposit(double amount)
+    {
+        if (amount > 0)
+        {
             balance += amount;
-            cout << "Deposited: " << amount << endl;
-        } else {
-            cout << "Invalid deposit amount!" << endl;
+            cout << "Deposited $" << amount << " successfully." << endl;
+        }
+        else
+        {
+            cout << "Invalid deposit amount. Please enter a positive value." << endl;
         }
     }
 
-    
-    void withdraw(double amount) {
-        if (amount <= 0) {
-            cout << "Invalid withdrawal amount!" << endl;
-        } else if (amount > balance) {
-            cout << "Insufficient funds. Withdrawal failed!" << endl;
-        } else {
+    void withdraw(double amount)
+    {
+        if (amount > 0 && amount <= balance)
+        {
             balance -= amount;
-            cout << "Withdrawn: " << amount << endl;
+            cout << "Withdrawn $" << amount << " successfully." << endl;
+        }
+        else if (amount > balance)
+        {
+            cout << "Insufficient balance. Cannot withdraw $ " << amount << "." << endl;
+        }
+        else
+        {
+            cout << "Invalid withdrawal amount. Please enter a positive value." << endl;
         }
     }
 
-    void checkBalance() const {
-        cout << "Current balance: " << balance << endl;
-    }
-
-    void displayAccountInfo() const {
-        cout << "Account Holder: " << accountHolderName << endl;
-        cout << "Account Number: " << accountNumber << endl;
-        checkBalance();
+    void display_balance() const
+    {
+        cout << "Account Holder : " << accountHolderName << endl;
+        cout << "Account Number : " << accountNumber << endl;
+        cout << "Current Balance : $" << balance << endl;
     }
 };
 
+int main()
+{
+    string name, accNumber;
+    double initialBalance;
 
-int main() {
- 
-    BankAccount myAccount("khush", 1001, 500.0);
+    cout << "Enter Account Holder's Name : ";
+    getline(cin, name);
+    cout << "Enter Account Number : ";
+    getline(cin, accNumber);
+    cout << "Enter Initial Balance : $ ";
+    cin >> initialBalance;
 
-    
-    myAccount.displayAccountInfo();
-    cout << endl;
+    BankAccount userAccount(name, accNumber, initialBalance);
 
-    myAccount.deposit(200.0);
-    myAccount.withdraw(150.0);
-    myAccount.withdraw(600.0); 
-    myAccount.checkBalance();
+    int choice;
+    double amount;
 
+    do
+    {
+        cout << endl << "Choose an operation : " << endl;
+        cout << "1. Deposit" << endl;
+        cout << "2. Withdraw" << endl;
+        cout << "3. Display Balance" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter your choice : ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            cout << "Enter amount to deposit : $ ";
+            cin >> amount;
+            userAccount.deposit(amount);
+            break;
+        case 2:
+            cout << "Enter amount to withdraw : $ ";
+            cin >> amount;
+            userAccount.withdraw(amount);
+            break;
+        case 3:
+            userAccount.display_balance();
+            break;
+        case 4:
+            cout << "Exiting the program. Thank you!" << endl;
+            break;
+        default:
+            cout << "Invalid choice. Please try again." << endl;
+        }
+    }
+    while (choice != 4);
+
+    cout << "KHUSH_24CE135" ;
     return 0;
 }
